@@ -1,0 +1,417 @@
+\section{Basic Definitions}
+
+\begin{definition}[Power Set]
+Given a set $A$, we use $\mathcal{P}(A)$ to denote the power set of $A$, that is, the set of all subsets of $A$.
+We use $\mathcal{P}_{NE}(A)$ to denote the set containing all non-empty subsets of $A$, that is, $\mathcal{P}_{NE}(A)=\mathcal{P}(A) \setminus \{\emptyset \}$.
+
+We obtain the size of a set through the $|\cdot|$ operator: for $A=\{a,b,c\}$, we have $|A| = 3$, whereas $|\emptyset|=0$.
+\end{definition}
+
+
+\begin{definition}[Multiset]
+A multiset is an extension of the concept of a set, where elements can appear more than once. 
+With $\mathcal{B}(A)$ we denote the set of all multisets of a set $A$.
+Multisets are denoted with square brackets, e.g. for $A=\{a,b,c\}$: $[~]$ (the empty multiset) and $[a,b,b,c]$ are two elements of $\mathcal{B}(A)$.
+Similarly to sets, the order in which the elements appear is not relevant: $[a,b,b,c] = [b,c,a,b] = [c,a,b,b]$.
+%One could also represent multisets by keeping track of the cardinality of its members, e.g. $[c,a,b,b,c,c] = [a, b^2, c^3]$.
+\end{definition}
+
+
+\begin{definition}[Sequence, Subsequence]
+Given a set $X$, a finite sequence over $X$ of length $n$ is a total function $s: \{1,...,n\} \rightarrow X$ and is written as $s = \langle s_1,...,s_n \rangle$ where $s_i = s[i] = s(i)$ for $1 \leq i \leq n$.
+We use the $|\cdot|$ operator to obtain the size of a sequence: $|\langle s_1,...,s_n \rangle| = n$.
+The empty sequence is denoted by $\langle ~ \rangle$ and has length 0.
+For each element $x \in X$ and a non-empty sequence $s$ over $X$, we have $x \in s \Leftrightarrow \exists_{1\leq i \leq |s|} s_i=x$.\\
+The operator $set(s) :=\{x \in s \}$ yields the set of events appearing in sequence $s$.\\
+Given two sequences $s=\langle s_1,...,s_n \rangle$ and $s'=\langle s_1',...,s_m' \rangle$, we say $s'$ is a subsequence of $s$, denoted $s' \sqsubseteq s$, if and only if there exist $1 \leq i_1 < ... < i_m \leq n$ such that $\forall_{i_1 \leq j \leq i_m} ~s_{i_j} = s_j'$. \\
+Given a set $X$, $X^*$ stands for the set of finite sequences over $X$.
+\end{definition}
+
+
+\begin{definition}[Operations on Sequences]
+Let $s=\langle s_1,...,s_n \rangle$ and $s'=\langle s_1',...,s_m' \rangle$ be two sequences.
+The \emph{concatenation} operator is denoted with the symbol $\cdot$ and is defined as follows: 
+$\langle s_1,...,s_n \rangle \cdot \langle s'_1,...,s'_m \rangle = \langle s_1,...,s_n,s'_1,...,s'_m \rangle$. \\
+The \emph{appending} operator is denoted with $\oplus$ and is defined as follows:
+$\langle s_1,...,s_n \rangle \oplus \langle s'_1,...,s'_m \rangle = \langle s_1,...,s_n, \langle s'_1,...,s'_m \rangle \rangle$, while for any element $x$ from an arbitrary set $X$ we have:
+$\langle s_1,...,s_n \rangle \oplus x = \langle s_1,...,s_n,x \rangle$.
+Note that for any sequence $s$ and $x \in X: ~ s \cdot \langle x \rangle = s \oplus x$.\\
+Given a sequence of sequences $s = \langle \langle s^1_1,...s^1_{i_1} \rangle,..., \langle s^n_1,...,s^n_{i_n}\rangle \rangle$, the \emph{flattening} operator (denoted  $\widehat{\cdot}$) is defined as: $\widehat{s} = \langle s^1_1,...,s^1_{i_1},...,s^n_1,...,s^n_{i_n}\rangle$.\\
+%\textcolor{red}{Add sequence projection.}
+\end{definition}
+
+
+\begin{definition}[Sequence Projection]
+Let $X$ be a set and $Q$ a subset of $X$. The function $ \downharpoonright_Q: X^* \to Q^*$ is \emph{the sequence projection function}, which is defined recursively:
+$\langle ~ \rangle \downharpoonright_Q = \langle ~ \rangle$ and for $s \in X^*$ and $x \in X$:
+\begin{align*}
+(\langle x \rangle \cdot s) \downharpoonright_Q = \begin{cases}
+	 \langle x \rangle \cdot s \downharpoonright_Q & \mbox{if} \; x \in Q, \\
+	s\downharpoonright_Q & \mbox{if} \; x \not \in Q.
+	\end{cases} 
+\end{align*}
+We say $s \downharpoonright_Q$ is $s$ projected onto the elements of $Q$.
+Given sequences $s$ and $s'$, we often misuse the notation and use $s \downharpoonright_{s'}$ to indicate $s \downharpoonright_{set(s')}$.
+\end{definition}
+
+
+\begin{definition}[Applying functions to sequences \cite{conformance}]
+Let $f: X \not \to Y$ be a partial function.
+We can apply $f$ to sequences over set $X$ using the following recursive definition:
+\begin{align*}
+&f(\langle ~ \rangle) = \langle ~ \rangle, \\
+&f(\langle x \rangle \cdot s)  = \begin{cases}
+	 \langle f(x) \rangle \cdot f(s) & \mbox{if} \; x \in dom(f), \\
+	f(s) & \mbox{if} \; x \not \in dom(f).
+	\end{cases} 
+\end{align*}
+
+\end{definition}
+
+
+\begin{definition}[Permutation]
+A permutation over a set $X$ is a sequence $s$ which contains all elements of $X$ without duplicates.
+More precisely, $set(s)=X$ and $|s|=|X|$.
+We denote the set of all permutations over a set $X$ by $\mathcal{S}_X$.
+For a set $X$ of size $n$, we have $|\mathcal{S}_X|=n!$.
+\end{definition}
+
+
+\begin{definition}[Cartesian Product]
+Given a sequence of sets $\langle X_1,...X_n \rangle$, their \emph{cartesian product} is the set 
+$X= \{ \langle x_1,...,x_n \rangle \mid
+\forall ~ 1\leq i \leq n: ~ x_i \in X_i \}$.\\
+It holds that $|X|= \prod_{i=1}^n |X_i|$.
+\end{definition}
+
+
+\begin{definition}[Transitive Relation, Correct Evaluation Order]\label{eval}
+Given set $X$ and binary relation $R \subseteq X \times X$, we say that relation $R$ is \emph{transitive} if and only if $(x,x') \in R \wedge (x',x'') \in R \Rightarrow (x,x'') \in R$ for all $x,x',x'' \in X$.
+Given some set $X$ and a transitive relation $R \subseteq X \times X$,
+a permutation $s \in \mathcal{S}_X$ is \emph{a correct evaluation order} on $(R,X)$ if and only if $ \forall ~ 1 \leq i < j \leq |s|: \; (s_j,s_i) \not \in R$.
+\end{definition}
+
+
+\begin{definition}[Strict Partial Order]
+Given a set $X$, a strict partial order $\prec$ over $X$ is a binary relation that for all $x,x', x'' \in X$ satisifies following properties: 
+\begin{itemize}
+\item Irreflexivity: $x \prec x$ is false ($x \not \prec x$).
+\item Transitivity: $x \prec x' \wedge x' \prec x'' \Rightarrow x \prec x''$.
+\item Antisymmetry: $x \prec x' \Rightarrow x' \not \prec x$ (implied by irreflexivity and transitivity).
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Undirected Graph]
+An \emph{undirected graph} is a tuple $(V,E)$ where $V$ is the set of vertices and 
+$E \subseteq \{ \{u,v\} \in \mathcal{P}_{NE}(V)\}$ is the set of edges, consisting of two-element subsets of $V$.
+Undirected graphs are often called \emph{simple} graphs.
+\end{definition}
+
+
+\begin{definition}[Complement Graph]\label{def: complement graph}
+Let $G=(V,E)$ be an undirected graph and let 
+$K = \{ \{u,v\} \in \mathcal{P}_{NE}(V)\}$ 
+denote the set of all two-element subsets of $V$.
+The \emph{complement of $G$} is the graph $\overline{G}=(V,K \setminus E)$.
+In the complement graph $\overline{G}$, there is an edge between two vertices if and only if there is no edge between them in $G$.
+\end{definition}
+
+
+
+\begin{definition}[Bipartite Graph]
+An undirected graph $G=(V,E)$ is a \emph{bipartite graph} if one can partition the set of vertices into two disjoint subsets $V=V_1 \cup V_2$ such that every edge in $E$ has one endpoint in $V_1$ and one endpoint in $V_2$.
+\end{definition}
+
+
+\begin{definition}[Directed Graph]
+A \emph{directed graph} is a tuple $(V,E)$ where $V$ is the set of vertices and $E \subseteq V \times V$ is the set of directed edges, also called arcs.
+\end{definition}
+
+From hereon, whenever we say \textit{graphs} we mean any type of graph.
+
+
+\begin{definition}[Paths, Cycles]
+A path in a graph $G=(V,E)$ is a sequence 
+$p=\langle v_1,...,v_{|p|} \rangle$ of vertices in $V$ where for all $1 \leq i \leq |p|-1$:
+$(v_i,v_{i+1}) \in E$ if $G$ is a directed graph and $\{v_i,v_{i+1}\} \in E$ if $G$ is an undirected graph.
+Let $P_G$ denote the set of all possible paths over graph $G$.
+Given two vertices $u,v \in V$, we denote with $p_G(u,v)$ the set of paths starting in $u$ and ending in $v$:
+$p_G(u,v):= \{p \in P_G \mid p[1]=u \wedge p[|p|]=v\}$.
+For vertices $u,v \in V$ with $p_G(u,v) \neq \emptyset$, we say that $u$ and $v$ are \emph{connected} in $G$ and that $v$ is \emph{reachable} from $u$ (denoted as $u \overset{G}{\mapsto} v$).
+Conversely $u \overset{G}{\not \mapsto} v \Leftrightarrow p_G(u,v) = \emptyset$.
+We omit the superscript $G$ if it is clear from the context.\\
+A graph $G=(V,E)$ is \emph{acyclic} if for every vertex $v \in V: p_G(v,v)=\emptyset$.
+\end{definition}
+
+
+\begin{definition}[Complete graph]
+A graph $G=(V,E)$ is \emph{complete} if and only if every pair of vertices is connected through an edge in $E$.
+\end{definition}
+
+
+\begin{definition}[Undirected Variant]\label{def: undirected variant}
+Let $G=(V,E)$ be a directed graph.
+Its \emph{undirected variant} is a graph $G^U=(V^U,E^U)$ where 
+$V^U=V$ and 
+$E^U=\{ \{u,v\} \mid (u,v) \in E \wedge u \neq v\}$.\\
+In other words, $G^U$ is the graph we obtain from $G$ after removing the self loops and ignoring the direction of the arcs.
+\end{definition}
+
+
+\begin{definition}[Subgraphs]
+Given an undirected simple graph $G=(V,E)$, a graph $G'=(V',E')$ is a \emph{subgraph} of $G$ if and only if $V' \subseteq V$ and 
+$E' \subseteq \{\{u,v\} \in E \mid u,v \in V'\}$.
+We say that $G'=(V',E')$ is an \emph{induced subgraph} of $G$ if and only if $G'$ is a subgraph of $G$ and 
+$E' = \{\{u,v\} \in E \mid u,v \in V'\}$, that is, $E'$ contains all edges between vertices from $V'$ that are present in $G$.\\ 
+Similarly, if $G=(V,E)$ is a directed graph, a graph $G'=(V',E')$ is \emph{a subgraph} of $G$ is and only if $V' \subseteq V$ and 
+$E' \subseteq \{(u,v) \in E \mid u,v \in V'\}$.
+A graph $G'=(V',E')$ is an \emph{induced subgraph} of $G$ if and only if it is a subgraph of $G$ and 
+$E' = \{(u,v) \in E \mid u,v \in V'\}$.\\
+For both undirected and directed graphs, if $G'=(V',E')$ is an induced subgraph of a graph $G$, we use $G[V']$ to indicate that $G'$ is \emph{the subgraph of $G$ induced by the vertex set $V$}.
+\end{definition}
+
+
+\begin{definition}[Clique]
+Given a graph $G=(V,E)$, a \emph{clique} is an induced subgraph of $G$ that is complete.
+\end{definition}
+
+
+\begin{definition}[Connected Components]
+A graph $G=(V,E)$ is \emph{connected} if and only if every pair of vertices $u,v \in V$ is connected in $G$ ($u \overset{G}{\mapsto} v$).\\
+A \emph{connected component} of $G$ is an induced subgraph of $G$ of maximal size that is connected.
+The connected components of $G$ induce a partition on the set of vertices $V = C_1 \cup ... \cup C_n$.
+We identify the connected components of $G$ through their vertex sets $C_1,...,C_n$.
+\end{definition}
+
+
+\begin{definition}[Topological Sorting]\label{def: topological sorting}
+Let $G=(V,E)$ be a directed acyclic graph.
+A \emph{topological sorting} $o_G \in \mathcal{S}_V$ is a permutation over the set $V$ of vertices such that for all $1 \leq i < j \leq |V|$ it holds that $o_G[j] \overset{G}{\not \mapsto} o_G[i]$.\\
+We denote the set of all topological sortings of a graph $G$ with $\mathcal{O}_G$.
+\end{definition}
+
+\begin{definition}[Transitive Reduction]
+The \emph{transitive reduction} is a function $\rho: \mathcal{G} \to \mathcal{G} $ where $\mathcal{G}$ denotes the universe of graphs.
+Given a graph $G=(V,E)$, $\rho(G)=(V,E_r)$ is a graph with $E_r \subseteq E$ where an edge between any two vertices $u,v \in V$ implies that $p_G(u,v)=\{u,v\}$ if $G$ is simple and $p_G(u,v)=(u,v)$ if $G$ is directed. 
+$\rho(G)$ is a graph with the minimal number of edges such that $E_r \subseteq E$ and $p_G(u,v) \neq \emptyset \Rightarrow p_{\rho(G)} \neq \emptyset$, that is, maintaining the reachability between the vertices of $G$.\\
+If $G$ is a directed acyclic graph, then its transitive reduction exists and is unique \cite{transitive}.
+\end{definition}
+%
+%
+%
+%
+%
+%
+\section{Process Mining Definitions}
+
+\begin{definition}[Universes \cite{mining}]
+Let $\mathcal{U}_I$ be the set of all \emph{event identifiers}.
+Let $\mathcal{U}_C$ be the set of all \emph{case ID identifiers}.
+Let $\mathcal{U}_A$ be the set of all \emph{activity identifiers}.
+Let $\mathcal{U}_T$ be the totally ordered set of all timestamp identifiers.
+We call the sets $\mathcal{U}_I$, $\mathcal{U}_C$, $\mathcal{U}_A$, $\mathcal{U}_T$ \emph{the event ID universe, case ID universe, activity universe and timestamp universe} respectively.
+\end{definition}
+
+\begin{definition}[Certain events and event logs \cite{mining}]
+Let $\mathcal{E}_C = \mathcal{U}_I \times \mathcal{U}_C \times \mathcal{U}_A \times \mathcal{U}_T$ denote the universe of  \emph{certain events}.
+\emph{A certain event log} is a set of events $L_C \subseteq \mathcal{E}_C$ such that every event identifier in $L_C$ is unique.
+\end{definition}
+
+
+\begin{definition}[Certain traces]\label{def: certain traces}
+Let $L_C$ be a certain event log. 
+Let $\mathcal{U}_C^{L_C} \subseteq \mathcal{U_C}$ be the set of case IDs appearing in log $L_C$. 
+For every $c \in \mathcal{U}_C^{L_C}$, one can obtain the maximal set of events $E_c = \{(e_1,c_1,a_1,t_1), ..., (e_n,c_n,a_n,t_n)\} \subseteq \ L_C$ of case $c$ where $c_1=...=c_n=c$ and $t_1<...<t_n$.
+The \emph{event trace} of case c is the sequence $\langle e_1,...,e_n \rangle$ while the \emph{activity trace} of case c is the sequence $\langle a_1,...,a_n \rangle$.
+They are both induced by the set $E_c$.
+\end{definition}
+
+
+
+
+
+
+
+When applying Process Mining on event data without explicit uncertainty, the additional property ``certain'' on the definitions of events, event logs and traces is redundant.
+Moreover, in such logs one does not need to distinguish between event traces and activity traces of a particular case since in certain logs each process instance has a unique trace of activities corresponding to it.
+As we will see later, in uncertain logs this is not necessarily the case.
+
+
+\begin{definition}[Determinate and indeterminate event qualifiers \cite{mining}]
+Let $\mathcal{U}_O = \{!, ?\}$, where the ``!'' symbol denotes \emph{determinate events}, and the ``?'' symbol denotes \emph{indeterminate events}.
+We also call this attribute the \emph{event type}.
+\end{definition}
+
+
+%\begin{definition}[Uncertain events and event logs]
+
+
+\begin{definition}[Strongly uncertain events and event logs]
+Let $\mathcal{E}_S=\mathcal{U}_I \times \mathcal{P}_{NE}(\mathcal{U}_C) \times \mathcal{P}_{NE}(\mathcal{U}_A) \times \mathcal{T} \times \mathcal{U}_O$ denote the set of \emph{strongly uncertain events} where $\mathcal{T} = \{(t_1,t_2) \in \mathcal{U}_T \times \mathcal{U}_T \mid t_1 \leq t_2\}$.
+The timestamp pair $(t_1,t_2)$ denotes the possible time interval for event $e$ with $t_1$ being the minimum possible timestamp and $t_2$ being the maximum possible timestamp.
+A \emph{strongly uncertain event log} is a set of events $L_S \subseteq \mathcal{E}_S$ such that every event identifier in $L_S$ is unique.
+For a strongly uncertain event $e=(e_i,c_s,a_s,t_s,o) \in L_S$ we define the following projection functions: 
+$\pi_{id}^{L_S}(e)=e_i \in \mathcal{U}_I, 
+\pi_c^{L_S}(e)=c_s \in \mathcal{P}_{NE}(\mathcal{U}_C)$, 
+$\pi_a^{L_S}(e)=a_s \in \mathcal{P}_{NE}(\mathcal{U}_A)$, 
+$\pi_t^{L_S}(e)=t_s \in \mathcal{T}$ and 
+$\pi^{L_S}_o(e)=o \in \mathcal{U}_O$. 
+\end{definition}
+
+In the remainder of this work, whenever $\pi_t(e) = (t_1,t_2) \in \mathcal{T}$ for some uncertain event $e$, we assume that any timestamp $t \in \mathcal{U}_T$ such that $t_1 \leq t \leq t_2$ is a possible timestamp for $e$.
+
+
+\begin{definition}[Weakly uncertain events and event logs] 
+Let $Q$ be a (not necessarily finite) set.
+We use $F_Q$ to denote the following family of functions over $Q$:
+$F_Q := \{f: Q \rightarrow [0,1] \mid
+\sum_{q \in Q} f(q) = 1\}$ if $Q$ is finite and 
+$F_Q := \{f: Q \rightarrow [0,1] \mid
+\int_{q \in Q} f(q) ~ dq = 1\}$ if $Q$ is infinite. \\
+Let $\mathcal{E}_W = \{(e,f_C,f_A,f_T,f_O) \mid 
+f_C \in F_{\mathcal{U}_C}, f_A \in F_{\mathcal{U}_A}, f_T \in F_{\mathcal{U}_T}, f_O \in F_{\mathcal{U}_O} \}$
+denote the set of \emph{weakly uncertain events}.
+A \emph{weakly uncertain event log} is a set of events $L_W \subseteq \mathcal{E}_W$ such that every event identifier in $L_W$ is unique.
+
+For a weakly uncertain event $e=(e_i,f_C,f_A,f_T,f_O) \in L_W$ we define the following projection functions:
+$\pi_{id}^{L_W}(e)=e_i \in \mathcal{U}_I, 
+\pi_c^{L_W}(e)=f_C \in F_{\mathcal{U}_C}$, 
+$\pi_a^{L_W}(e)=f_A \in F_{\mathcal{U}_A}$, 
+$\pi_t^{L_W}(e)=f_T \in F_{\mathcal{U}_T}$ and 
+$\pi^{L_W}_o(e)=f_O \in F_{\mathcal{U}_O}$. 
+\end{definition}
+
+
+In contrast to the definition introduced in \cite{mining}, the weakly uncertain events are enclosed with a probability distribution for each of their attributes separately and those distributions are assumed to be independent from each-other.
+This represents a special case of the weakly uncertain events defined in \cite{mining}, where the probability $f$ for each possible triple $(c,a,t) \in \mathcal{U}_C \times \mathcal{U}_A \times \mathcal{U}_T$ containing the corresponding attribute values for a particular event $e$ is obtained from the multiplication of the separate probability values for each of those attributes.\\
+
+
+
+Note that a certain event $e_C=(i,c,a,t) \in \mathcal{E}_C$ has an equivalent strongly uncertain event $e_S=(i,\{c\},\{a\},(t,t),!) \in \mathcal{E}_S$, which in turn has an equivalent weakly uncertain event 
+$e_W=(i,f_C,f_A,f_T,f_O) \in \mathcal{E}_W$ s.t. $f_C(c)=1, f_A(a)=1, f_T(t)=1$ and $f_O(!)=1$.
+
+Similarly, a strongly uncertain event $e_S=(i,C,A,(t_1,t_2),o) \in \mathcal{E}_S$ may have an equivalent weakly uncertain event $e_W=(i,f_C,f_A,f_T,f_O)$ where $f_C(x)=1/|C|$ if $x \in C$ and 0 otherwise, $f_A(x)=1/|A|$ if $x \in A$ and 0 otherwise, $f_T(t)=\frac{1}{t_2-t_1}$ if $t_1 \leq t < t_2$ or $t_1 < t \leq t_2$ and 0 otherwise, and $f_O(!)=1$ if $o=!$ and $f_O(!)=f_O(?)=0.5$ otherwise.
+It is important to mention that this transformation of attribute values with strong uncertainty into event attributes with weak uncertainty interprets the set (or range) of possible values as equally likely.
+As stressed in \cite{mining}, strong uncertainty does not indicate a uniform distribution; there is simply no information on the likelihood of values.
+In view of this work however, interpreting strong uncertainty as weak uncertainty with uniform distribution for activities and the event qualifier makes no difference when determining a probability distribution over the possible traces of an uncertain process instance.
+For the timestamp attribute on the other hand, we will see in Chapter \ref{chap:estimates} that one has the choice to decide whether a possible time interval should indicate a uniform distribution or not.
+
+In practice, one can expect to find both types of uncertainty intertwined when dealing with uncertain event data.
+Events might not necessarily have uncertainty in all attributes, just as there might be attributes whose values are accompanied by information on their likelihood and others where one only knows their possible values.
+The following definition gives a formal general description for events and event logs with mixed types of uncertainty.
+%
+\begin{definition}[Uncertain events and event logs]
+An \emph{uncertain event} is an element from the set
+$\mathcal{E} = \mathcal{U}_I \: \times \:
+\mathcal{C} \: \times \:
+\mathcal{A} \: \times \:
+\mathcal{TS} \: \times \:
+\mathcal{O} $
+where 
+$
+\mathcal{C} = \mathcal{U}_C \cup \mathcal{P}_{NE}(\mathcal{U}_C) \cup F_{\mathcal{U}_C},\\
+\mathcal{A} = \mathcal{U}_A \cup \mathcal{P}_{NE}(\mathcal{U}_A) \cup F_{\mathcal{U}_A},
+\mathcal{TS} = \mathcal{U}_T \cup \mathcal{T} \cup F_{\mathcal{U}_T} 
+\text{ and }
+\mathcal{O} = \mathcal{U}_O \cup F_{\mathcal{U}_O}$.
+The projection functions $\pi_{id}, \pi_c, \pi_a, \pi_t$ and $\pi_o$ are defined as usual.
+An \emph{uncertain event log} is a set $L \subseteq \mathcal{E}$ where every event identifier is unique.\\
+Given an event $e \in \mathcal{E}$, we say that $e$ has no uncertainty in one of the attributes case ID, activity or timestamp if and only if $\pi_c(e) \in \mathcal{U}_C, \pi_a(e) \in \mathcal{U}_A$ and $\pi_t(t) \in \mathcal{U}_T$ respectively.
+We say that $e$ has strong uncertainty in one of these attributes if and only if $\pi_c(e) \in \mathcal{P}_{NE}(\mathcal{U}_C), \pi_a(e) \in \mathcal{P}_{NE}(\mathcal{U}_A)$ or $\pi_t(e) \in \mathcal{T}$ respectively.
+Similarly, we say that $e$ has weak uncertainty in one of the above attributes if and only if $\pi_c(e) \in F_{\mathcal{U}_C}, \pi_a(e) \in F_{\mathcal{U}_C}$ or $\pi_t(e) \in F_{\mathcal{U}_C}$.
+Regarding the event type, we say that $e$ has strong uncertainty on the event qualifier if and only if $\pi_o(e)=? \in \mathcal{U}_O$ and weak uncertainty if $\pi_o(e) \in F_{\mathcal{U}_O}$.
+Otherwise $e$ is determinate.
+Additionally, for an event $e \in \mathcal{E}$ we define the following function: 
+\begin{align*}
+\pi_a^{set}(e) = \begin{cases}
+	\{a\} & \mbox{if} \; \pi_a(e)=a \in \mathcal{U}_A, \\
+	\pi_a(e) & \mbox{if} \; \pi_a(e) \in \mathcal{P}_{NE}(\mathcal{U}_A),\\
+	\{a \in \mathcal{U}_A \mid f_A(a)>0 \} & \mbox{if} \; \pi_a(e) = f_A \in F_{\mathcal{U}_A}.
+	\end{cases}
+\end{align*}
+\end{definition}
+
+$\pi_a^{set}(e)$ yields the set of possible activities that might have been executed from some event $e \in \mathcal{E}$.
+Using this function, we can now define the set of possible activity sequences corresponding to a given event sequence $s = \langle e_1,...,e_n \rangle$:
+\begin{align*}\label{def: cartesian activities}
+A(s) := \bigotimes_{1 \leq i \leq n} \pi^{set}_a(e_i). 
+\end{align*}
+We call $A(s)$ the set of activity sequences \textit{enabled} by event sequence $s$.
+Note that when there is no uncertainty in the activities of the events $e_1,...,e_n$, then $|A(s)|=1$.\\
+We also define the following two functions which help us access the minimum and maximum possible timestamps of a particular event $e \in \mathcal{E}$:
+\begin{align*}
+t_{min}(e) &= \begin{cases}
+	t & \mbox{if} \; \pi_t(e)=t \in \mathcal{U}_T,\\
+	t_1 & \mbox{if} \; \pi_t(e)=(t_1,t_2) \in \mathcal{T}, \\
+	min \{t \in \mathcal{U}_T \mid f_T(t) > 0 \} & \mbox{if} \; \pi_t(e) = f_T \in F_{\mathcal{U}_T},
+	\end{cases} \\
+	%\text{ and } \\
+t_{max}(e) &= \begin{cases}
+	t & \mbox{if} \; \pi_t(e)=t \in \mathcal{U}_T,\\
+	t_2 & \mbox{if} \; \pi_t(e)=(t_1,t_2) \in \mathcal{T}, \\
+	max \{t \in \mathcal{U}_T \mid f_T(t) > 0 \} & \mbox{if} \; \pi_t(e) = f_T \in F_{\mathcal{U}_T}.
+	\end{cases} \\
+\end{align*}
+
+Note that the functions $t_{min}$ and $t_{max}$ might also yield $- \infty$ or $+\infty$ respectively. 
+Some examples could be $\pi_t(e)=f_T \in F_{\mathcal{U}_T}$ being a gaussian or an exponential distribution.
+Also, if some event $e$ has no uncertainty in its timestamp attribute, then $t_{min}(e) = t_{max}(e)$.\\
+
+In the uncertain logs that we analyze from now on we always assume that every event has a unique case ID ($\pi_c(e) \in \mathcal{U}_C$ for all $e \in L$), which means that we can unambiguously assign the corresponding set of events to every case ID appearing in $L$.
+
+Beside having a single event displaying different types of uncertainty across its attributes, the set of events belonging to a particular process instance might display distinct uncertainty types for the same attribute.
+For example, a process instance might contain two events where one has strong uncertainty in activities, while the other has weak uncertainty in activities and strong uncertainty in timestamps.
+As we will see later, the equation for computing the probability of the possible activity traces belonging to a case depends on the presence and type of uncertainty of each particular attribute for the event set as a whole.
+For this reason, we define an uncertainty type on the case level.
+
+\begin{definition}[Uncertainty types of cases]
+Let $L \subseteq \mathcal{E}$ be an uncertain event log such that for any $e \in \mathcal{E}:$ $\pi_c(e) \in \mathcal{U}_C$, that is, each event belongs to a unique case.
+For some $c \in \mathcal{U}_C^L$ let $E_c = \{e_1,...,e_n\}$ be its corresponding event set.
+We say that case $c$ is \emph{certain} if and only if all its events are certain: $\forall e \in E_c: ~ e \in \mathcal{E}_C$. 
+Otherwise, case $c$ is \emph{uncertain} and we define its uncertainty type the following way:
+Case $c$ has \emph{no uncertainty} in activities, timestamps or event type if and only if for all $e \in E_c$ it holds that $\pi_a(e)\in \mathcal{U}_A, \pi_t(e) \in \mathcal{U}_T$ or $\pi_o(e)= \;!$ respectively.
+We say that $c$ has \emph{strong uncertainty in activities} if and only if 
+$\exists ~ e \in E_c ~ s.t. ~ \pi_a(e) \in \mathcal{P}_{NE}(\mathcal{U}_A) \wedge \nexists ~ e \in E_c ~ s.t. ~ \pi_a(e) \in F_{\mathcal{U}_A}$.
+Otherwise it has \emph{weak uncertainty in activities}.
+Similarly, case $c$ has \emph{strong uncertainty in timestamps} if and only if
+$~ \exists ~ e \in E_c ~ s.t. ~ \pi_t(e) \in T \wedge \nexists ~ e \in E_c ~ s.t. ~ \pi_t(e) \in F_{\mathcal{U}_T}$.
+Otherwise it has \emph{weak uncertainty in timestamps}.
+
+For the event type, we say that case $c$ has \emph{strong uncertainty in the event type} if and only if there exists $e \in E_c$ s.t. $\pi_o(e)=? \wedge \nexists ~ e \in E_c ~ s.t. ~ \pi_o(e) \in F_{\mathcal{U}_O}$.
+If there is some event $e \in E_c$ s.t. $\pi_o(e) \in F_{\mathcal{U}_O}$ then $c$ has weak uncertainty in the event type attribute.
+\end{definition}
+
+Determining a unified uncertainty type for each attribute for the whole event set of a case according to the last definition poses no constraint. 
+As we showed earlier, for each attribute one can go from certain values, to equivalent strongly uncertain and equivalent weakly uncertain values (in this order).
+
+%
+%
+%
+%
+\begin{table}[h]
+\caption{Summary of the uncertainty types that can affect the three event attributes: event type, activity and timestamp, together with the symbols used in \cite{conformance} to encode all uncertainty types .
+	}
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{Attribute}                       & \textbf{Attribute type}                          & \textbf{Uncertainty type}                     & \textbf{Encoding} \\ \hline
+		\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Event 
+		type \\ /qualifier\end{tabular}} & \multirow{2}{*}{Discrete}   & Strong   & $\text{[O]}_\mathbb{S}$   \\ \cline{3-4} 
+		  &                           & Weak & $\text{[O]}_\mathbb{W}$   \\ \hline
+		%\multirow{2}{*}{Case}                                                            & \multirow{2}{*}{Discrete}   & Strong   & $\text{[C]}_\mathbb{S}$   \\ \cline{3-4} 
+		%&                             & Weak & $\text{[C]}_\mathbb{W}$   \\ \hline
+		\multirow{2}{*}{Activity}                                                        & \multirow{2}{*}{Discrete}   & Strong   & $\text{[A]}_\mathbb{S}$   \\ \cline{3-4} 
+		&                             & Weak & $\text{[A]}_\mathbb{W}$   \\ \hline
+		\multirow{2}{*}{Timestamp}                                                       & \multirow{2}{*}{Continuous} & Strong   & $\text{[T]}_\mathbb{S}$   \\ \cline{3-4} 
+		&                             & Weak & $\text{[T]}_\mathbb{W}$   \\ \hline
+	\end{tabular}
+	\label{table: taxonomy}
+\end{table}
+%
+%
+%
+%
+Table \ref{table: taxonomy} shows a summary of the uncertainty types affecting the three event attributes that we consider in the remainder of this work.
+We use the encodings of the last column to denote the uncertainty type of an event set as a whole. 
+E.g., given the event set of some uncertain process instance, 
+$[A]_{\mathbb{S}}[T]_{\mathbb{W}}$ indicates there is strong uncertainty in activities and weak uncertainty in timestamps, whereas $[O]_{\mathbb{W}}[A,T]_{\mathbb{S}}$ stands for weak uncertainty in the event type and strong uncertainty in activities and timestamps.
