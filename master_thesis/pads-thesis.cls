@@ -1,7 +1,7 @@
 \NeedsTeXFormat{LaTeX2e}
 
 \LoadClassWithOptions{report}
-\ProvidesClass{WCarticle}
+\ProvidesClass{pads-thesis}
 
 
 %%% configure character set and set character encoding to use utf-8 

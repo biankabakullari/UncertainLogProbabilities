@@ -1,88 +1,7 @@
-\documentclass[a4paper,11pt,twoside]{pads-thesis}
-
-%%%%% PACKAGES USED SORTED ALPHABETICALLY  %%%%%
-\usepackage[toc,page]{appendix} % support appendices
-\usepackage{csquotes} % handles quotes automatically
-\usepackage{hyperref} % allows autoref/hyperlinks/etc.
-\usepackage{amsmath}
-\usepackage{stmaryrd}
-\usepackage{adjustbox}
-
-%%%%% PADS TEMPLATE SETTINGS %%%%%
-\renewcommand{\gTitle}{Estimating Probabilities for Realizations of Uncertain Event Data}
-\renewcommand{\gAuthor}{Bianka Bakullari}
-\renewcommand{\gStudentID}{363085}
-\renewcommand{\gHeader}{Master's Thesis}
-\renewcommand{\gSupervisor}{
-    Marco Pegoraro M.Sc.}
-\renewcommand{\gExaminer}{Prof. Wil van der Aalst \\ 
-	Prof. Joost-Pieter Katoen }
-\renewcommand{\gInstitution}{i9 Process and Data Science (PADS) Chair, RWTH Aachen University}
-%\renewcommand{\gRegDate}{YYYY-MM-DD}
-%\renewcommand{\gSubDate}{YYYY-MM-DD}
-
-%%%%% AUTOREF %%%%%
-\renewcommand{\sectionautorefname}{Section}
-
-\begin{document}
-%%% Title page
-\pagenumbering{roman}
-
-\gTitlePage
-%\pagestyle{plain}
-%%% TOC
-
-%\begin{abstract}
-\chapter*{Abstract} \addcontentsline{toc}{chapter}{Abstract}
-\input{chapters/abstract.tex}\label{chap: abstract}
-%\end{abstract}
-
-\tableofcontents
-
-%\setcounter{page}{1}
-\cleardoublepage
-%%% Begin document
-\pagestyle{fancy}
-\pagenumbering{arabic}
-
-\chapter{Introduction} \label{chap:intro}
-\input{chapters/introduction.tex}
-
-\chapter{Related Work} \label{chap:related_work}
-\input{chapters/related_work.tex}
-
-\chapter{Preliminaries} \label{chap:prelim}
-\input{chapters/prelim.tex}
-
-\chapter{Process Mining Over Uncertain Data} \label{chap:fundamentals}
-\input{chapters/fundamentals.tex}
-
-\chapter{Trace Realizations of Uncertain Process Instances} \label{chap:realizations}
-\input{chapters/realizations.tex}
-
-\chapter{Estimating Probabilities for Trace Realizations}
-\label{chap:estimates}
-\input{chapters/estimates.tex}
-
-
-%\chapter{Evaluation} \label{chap:eval}
-%\input{chapters/evaluation.tex}
-
-%\chapter{Discussion} \label{chap:discussion}
-%\input{chapters/discussion.tex}
-
-\chapter{Conclusion} \label{chap:conclusion}
-\input{chapters/conclusion.tex}
-
-
-
-%\bibliography{references.bib} 
-%\input{myreferences.tex}
-\addcontentsline{toc}{chapter}{Bibliography}
-\begin{thebibliography}{5}
+\begin{thebibliography}
 
 \bibitem{pm4py}
-PM4Py, \url{http://pm4py.pads.rwth-aachen.de/}
+Pm4Py, \url{http://pm4py.pads.rwth-aachen.de/}
 
 \bibitem{proved}
 PROVED, \url{https://github.com/proved-py/proved-core/}
@@ -132,23 +51,6 @@ process event logs, in: International Conference on Business Process Management,
 I. Beschastnikh, Y. Brun, M. D. Ernst, A. Krishnamurthy, T. E. Anderson, Mining temporal invariants from partially ordered logs, in: Managing Large-scale Systems via the Analysis of System Logs and the Application of Machine Learning Techniques, 2011, pp. 1–10.
 
 
+
+
 \end{thebibliography}
-
-
-
-
-
-%\begin{appendices}
-    %\chapter{Some Appendix}
-    %Try to avoid appendices.
-    %If you can't this is a place to show all kinds of results that are supportive, yet, not critical for your thesis.
-%\end{appendices}
-
-
-
-%\chapter*{Acknowledgments}\addcontentsline{toc}{chapter}{Acknowledgements}
-%\input{chapters/acknowledgements.tex}
-
-
-
-\end{document}

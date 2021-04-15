@@ -2,19 +2,19 @@ The increasing amount of available event-related data requires the further devel
 In this work, we focused on event data with explicit uncertainty, that is, events whose attributes do not always contain unique values, but a description and possibly a distribution over many possible values.
 We described the challenges that uncertainty in the attributes timestamp, activity and event type represent and how they allow for many possible traces to be valid candidates for the unique but unknown run of any uncertain process instance.
 We introduced a new method for obtaining the set of all possible event orderings related to the same uncertain case, proved its correctness, and analyzed its complexity and runtime against a naive baseline method.
-Examples of uncertain process instances were presented exposing both best- and worst-case scenarios with respect to performance.
+Examples of uncertain process instances were presented exposing both best and worst-case scenarios with respect to performance.
 Moreover, we proposed a new classification of uncertain event data into uncertainty types on a case level, and provided a method for obtaining the probabilities of all trace realizations based on that uncertainty type.
 The probability estimates are aggregated under independence assumptions from the uncertainty information describing the values of event attributes.
-We incorporated the obtained probabilities in conformance checking and showed how the conformance cost is affected by comparing it to the best-, worst- and average conformance scores.
-To validate the obtained probability estimates, we ran a simulator 100000 times on the behavior net of an process instance and showed how the frequencies of the produced traces converge to the values we computed with our method.
+We incorporated the obtained probabilities in conformance checking, and showed how the conformance cost is affected by comparing it to the best, worst, and average conformance scores.
+To validate the obtained probability estimates, we conducted a Monte Carlo simulation on the behavior net of an uncertain process instance and showed how the frequencies of the produced traces converge to the probability values we computed with our method.
 
 The ideas and methods presented in this thesis can be extended in a number of ways.
 First of all, the probabilities of all trace realizations can be studied for processes where the independence assumptions regarding the uncertainty information do not hold.
 Also, the computed probability estimates remain to be validated for uncertain cases with weak uncertainty in timestamps.
 Moreover, computing the expected conformance score incorporating the probability estimates requires computing alignments for all trace realizations.
 From a performance perspective, one could investigate more efficient methods for computing the conformance costs.
-For instance, one could consider measuring the conformance costs of uncertain cases using Earth Mover's Distance between a model and a stochastic behavior net similar to the one we constructed for validation.
+For instance, one could consider measuring the conformance costs of uncertain cases using Earth Movers' Distance between a model and a stochastic behavior net, similar to the one we constructed for validation.
 Furthermore, one can analyze how the probabilities of the trace realizations can be incorporated in process discovery.
 Future research might also study the topology of the follows graphs that lead to particularly fast or slow runtimes when computing the set of valid event orderings.
-Another direction for future work are uncertain event logs where the case IDs attribute is also uncertain.
+Another direction for future work are uncertain event logs where the case ID attribute is also uncertain.
 Most importantly, the significance of the probability estimates obtained both from uncertainty information and from behavioral regularities in the log should be investigated using real-life data.

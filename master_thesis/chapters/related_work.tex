@@ -1,5 +1,3 @@
-\label{sec: rel work}
-
 A taxonomy for event data with \textit{explicit uncertainty} was first introduced in \cite{mining}.
 Event attributes are assumed to contain explicit information describing the possible set or range of values.
 The authors classify uncertainty into \textit{strong} and \textit{weak uncertainty}, depending on whether a distribution over the possible attribute values is at disposal.
@@ -18,28 +16,28 @@ In \cite{repair}, the authors focus on process instances containing events with 
 Two techniques are proposed for retrieving the total order among such events.
 The first one computes the most likely trace based on how frequently the consecutive activity pairs appear in a directly-follows relationship in the traces without incorrect timestamps.
 The second technique aims to assign a new repaired timestamp to each event, based on the duration of its corresponding activity in the log.
-The "same timestamp" error is, however, just a possible scenario in the broader definition of uncertainty we use in this work.
+The ``same timestamp'' error is, however, just a possible scenario in the broader definition of uncertainty we use in this work.
 Moreover, in contrast to these techniques, we assess the likelihood of each possible trace realization of an uncertain instance without relying on the presence of other traces without overlapping timestamps in the log.
 Also, if events in our uncertain logs are assigned timestamp intervals (possibly enclosed with a probability density function) obtained from domain knowledge, a unique repaired timestamp value may not be desired.
 Similar to the first technique mentioned above, the authors in \cite{por} estimate the likelihood of possible activity sequences corresponding to the same process instance relying on the frequency of similar behavioral patterns occurring in other traces in the log.
 The cause for lacking a total order between events are again identical timestamps.
 In this work, the authors propose three methods on how to compute the likelihood of each trace realization, each one defining the concept of a similar pattern with a different level of abstraction.
 In contrast to our scenario, computing the possible event orderings (also called partial order resolutions) for any uncertain instance in this case is straight-forward.
-On one hand there is no uncertainty in activities, so each event sequence executes a unique trace.
+On one hand, there is no uncertainty in activities, so each event sequence executes a unique trace.
 On the other hand, every permutation over events with identical timestamps is a possible ordering, which is not necessarily true in our uncertainty scenario.
-We adapt however all three methods to our definition of an uncertain log and obtain this way a new additional probability estimate for every trace realization of an uncertain case, depending solely on the patterns of other traces, and not on the uncertainty information of its own event set.
-Furthermore, in \cite{por} computing improved conformance checking scores is used as a motivation for obtaining the probabilities of the partial order resolutions.
+We adapt, however, all three methods to our definition of an uncertain log, and obtain this way a new additional probability estimate for every trace realization of an uncertain case, depending solely on the patterns of other traces, and not on the uncertainty information of its own event set.
+Furthermore, in \cite{por}, computing improved conformance checking scores is used as a motivation for obtaining the probabilities of the partial order resolutions.
 In the same way, we compute a new \textit{expected conformance score} for any uncertain instance in Section \ref{sec: expected cc} by weighing the individual conformance score of each trace with its estimated likelihood.
 Improving the reliability of conformance scores for partially ordered event data is also studied in \cite{xixi}.
 In this work, Lu et al. show how one can derive dependencies and concurrency between events by either assuming that events with coarse uncomparable timestamps are concurrent or by relying on the order in which events change annotated data present in the log when they are executed.
 This way, a partial order is obtained on the event set, which turns sequential traces into partial traces.
-A new optimal alignment is computed for every partial trace (a p-alignment) which is argued to reflect the conformance of the trace to the model in a more reliable and flexible way.
+A new optimal alignment is computed for every partial trace (a p-alignment), which is argued to reflect the conformance of the trace to the model in a more reliable and flexible way.
 In contrast to their work, we do not consider data annotated logs in this work.
 Moreover, we do not assume that events with overlapping timestamps are necessarily concurrent.
-Hence, we do not focus on the most conforming trace realization, since its event ordering might not be very likely or even represent reality as is the case when events with overlapping timestamps are concurrent.
-In \cite{earth}, Leemans et al. compute a Stochastic Conformance Measure between a log and a model using Earth Movers' Distance, that is, the amount of effort required to transform the language of the log into the language of a model.
+Hence, we do not focus on the most conforming trace realization, since its event ordering might not be very likely or even represent reality, as is the case when events with overlapping timestamps are concurrent.
+In \cite{earth}, Leemans et al. compute a Stochastic Conformance Measure between a log and a model using Earth Movers' Distance, that is, the least amount of effort required to transform the language of the log into the language of a model.
 Stochastic petri nets are used to represent the log and the model, where in the first case the transitions' weights are determined by looking at the traces in the log.
-This conformance measure takes into consideration both the frequency of each trace variant in the log and the Levenshtein (also known as String Edit) distance between each log- and model trace pair.
-In this work we also use a stochastic petri net for validating the probability estimates for the realizations of a particular process instance.
-In our case, it is a behavior net, where the weights of the transitions are obtained from the explicit uncertainty information regarding activities and indeterminate events.
+This conformance measure takes into consideration both the frequency of each trace variant in the log and the Levenshtein (also known as String Edit) distance between each log and model trace pair.
+In this work, we also use a stochastic petri net for validating the probability estimates for the realizations of a particular process instance.
+In our case, it is called a behavior net, and the weights of the transitions are obtained from the explicit uncertainty information regarding activities and indeterminate events.
 Using such behavior nets to estimate the process instance's conformance with Earth Mover's distance remains to be addressed in future work.
