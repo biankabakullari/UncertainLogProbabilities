@@ -7,15 +7,17 @@
 \usepackage{amsmath}
 \usepackage{stmaryrd}
 \usepackage{adjustbox}
+\usepackage{caption}
+
 
 %%%%% PADS TEMPLATE SETTINGS %%%%%
-\renewcommand{\gTitle}{Estimating Probabilities for Realizations of Uncertain Event Data}
+\renewcommand{\gTitle}{Estimating Probabilities for Realizations \\ of Uncertain Event Data}
 \renewcommand{\gAuthor}{Bianka Bakullari}
 \renewcommand{\gStudentID}{363085}
 \renewcommand{\gHeader}{Master's Thesis}
 \renewcommand{\gSupervisor}{
     Marco Pegoraro M.Sc.}
-\renewcommand{\gExaminer}{Prof. Wil van der Aalst \\ 
+\renewcommand{\gExaminer}{Prof. Wil M. P. van der Aalst \\ 
 	Prof. Joost-Pieter Katoen }
 \renewcommand{\gInstitution}{i9 Process and Data Science (PADS) Chair, RWTH Aachen University}
 %\renewcommand{\gRegDate}{YYYY-MM-DD}
@@ -45,13 +47,16 @@
 \pagestyle{fancy}
 \pagenumbering{arabic}
 
-\chapter{Introduction} \label{chap:intro}
+\chapter{Introduction} 
+\label{chap:intro}
 \input{chapters/introduction.tex}
 
-\chapter{Related Work} \label{chap:related_work}
+\chapter{Related Work} 
+\label{chap:related_work}
 \input{chapters/related_work.tex}
 
-\chapter{Preliminaries} \label{chap:prelim}
+\chapter{Preliminaries} 
+\label{chap:prelim}
 \input{chapters/prelim.tex}
 
 \chapter{Process Mining Over Uncertain Data} \label{chap:fundamentals}
@@ -64,6 +69,9 @@
 \label{chap:estimates}
 \input{chapters/estimates.tex}
 
+\chapter{Estimating Probabilities Using Inter-Trace Information}
+\label{chap:logpatterns}
+\input{chapters/logpatterns.tex}
 
 %\chapter{Evaluation} \label{chap:eval}
 %\input{chapters/evaluation.tex}
@@ -131,6 +139,13 @@ process event logs, in: International Conference on Business Process Management,
 \bibitem{distributed}
 I. Beschastnikh, Y. Brun, M. D. Ernst, A. Krishnamurthy, T. E. Anderson, Mining temporal invariants from partially ordered logs, in: Managing Large-scale Systems via the Analysis of System Logs and the Application of Machine Learning Techniques, 2011, pp. 1–10.
 
+
+\bibitem{pegoraro2020conformance}
+  title={Conformance Checking over Uncertain Event Data},
+  author={Pegoraro, Marco and Uysal, Merih Seran and van der Aalst, Wil M P},
+  journal={arXiv preprint - arXiv:2009.14452},
+  year={2020}
+}
 
 \end{thebibliography}
 
